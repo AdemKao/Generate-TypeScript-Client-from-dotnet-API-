@@ -1,0 +1,20 @@
+{
+  "name": "02.generateapi",
+  "version": "1.0.0",
+  "description": "https://blog.logrocket.com/generate-typescript-csharp-clients-nswag-api/",
+  "main": "index.js",
+  "scripts": {
+    "build": "yarn build:client && yarn build:api",
+    "build:client": "cd client && yarn build",
+    "build:api": "cd api && dotnet build --configuration release",
+    "dev": "run-p dev:client dev:api",
+    "dev:client": "cd client && yarn dev",
+    "dev:client-console": "cd client-console && dotnet run",
+    "dev:api": "ASPNETCORE_URLS=http://*:5001 ASPNETCORE_ENVIRONMENT=Development dotnet watch --project api run --no-launch-profile",
+    "generate:ts": "dotnet run --project api_generator http://localhost:5001/swagger/v1/swagger.json ./client/src/clients.ts TypeScript",
+    "generate:dotnet": "dotnet run --project api_generator http://localhost:5001/swagger/v1/swagger.json ./client-console/clients.cs CSharp"
+  },
+  "author": "Adem Kao",
+  "license": "ISC",
+  "dependencies": {}
+}
